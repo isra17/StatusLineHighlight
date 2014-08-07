@@ -46,14 +46,6 @@ let g:loaded_StatusLineHighlight = 1
 function! s:DefaultHighlightings()
     highlight def StatusLineModified           term=bold,reverse cterm=bold,reverse ctermfg=DarkRed  gui=bold,reverse guifg=DarkRed
     highlight def StatusLineModifiedNC         term=reverse      cterm=reverse      ctermfg=DarkRed  gui=reverse      guifg=DarkRed
-    highlight def StatusLinePreview            term=bold,reverse cterm=bold,reverse ctermfg=Blue     gui=bold,reverse guifg=Blue
-    highlight def StatusLinePreviewNC          term=reverse      cterm=reverse      ctermfg=Blue     gui=reverse      guifg=Blue
-    highlight def StatusLineReadonly           term=bold,reverse cterm=bold,reverse ctermfg=Grey     gui=bold,reverse guifg=DarkGrey
-    highlight def StatusLineReadonlyNC         term=reverse      cterm=reverse      ctermfg=Grey     gui=reverse      guifg=DarkGrey
-    highlight def StatusLineSpecial            term=bold,reverse cterm=bold,reverse ctermfg=DarkBlue gui=bold,reverse guifg=DarkBlue
-    highlight def StatusLineSpecialNC          term=reverse      cterm=reverse      ctermfg=DarkBlue gui=reverse      guifg=DarkBlue
-    highlight def StatusLineUnmodifiable       term=bold,reverse cterm=bold,reverse ctermfg=Grey     gui=bold,reverse guifg=Grey
-    highlight def StatusLineUnmodifiableNC     term=reverse      cterm=reverse      ctermfg=Grey     gui=reverse      guifg=Grey
 endfunction
 call s:DefaultHighlightings()
 
@@ -110,16 +102,8 @@ function! s:ClearHighlight()
 endfunction
 function! s:StatusLineHighlight( isEnter )
     let l:notCurrent = (a:isEnter ? '' : 'NC')
-    if &l:previewwindow
-	call s:SetHighlight('Preview' . l:notCurrent)
     elseif &l:modified
 	call s:SetHighlight('Modified' . l:notCurrent)
-    elseif ! (&l:buftype ==# '' || &l:buftype ==# 'acwrite')
-	call s:SetHighlight('Special' . l:notCurrent)
-    elseif ! &l:modifiable
-	call s:SetHighlight('Unmodifiable' . l:notCurrent)
-    elseif &l:readonly
-	call s:SetHighlight('Readonly' . l:notCurrent)
     else
 	call s:ClearHighlight()
     endif
