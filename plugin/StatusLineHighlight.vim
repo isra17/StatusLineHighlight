@@ -102,7 +102,7 @@ function! s:ClearHighlight()
 endfunction
 function! s:StatusLineHighlight( isEnter )
     let l:notCurrent = (a:isEnter ? '' : 'NC')
-    elseif &l:modified
+    if &l:modified
 	call s:SetHighlight('Modified' . l:notCurrent)
     else
 	call s:ClearHighlight()
